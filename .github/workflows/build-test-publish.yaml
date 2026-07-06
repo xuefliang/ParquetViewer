@@ -1,7 +1,9 @@
 name: Test and Publish
 
 on:
- pull_request:
+  push:
+    branches: [ main, add-chinese-localization ]
+  pull_request:
     types:
       - opened
       - reopened
