@@ -51,13 +51,13 @@ jobs:
         results-path: ./src/ParquetViewer.Tests/TestResults/*.trx
 
     - name: Publish executable
-      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj -c Debug -f net10.0-windows --nologo -o publish -r win-x64 --no-self-contained
+      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj -c Debug -f net10.0-windows --nologo -o "$env:GITHUB_WORKSPACE\publish" -r win-x64 --no-self-contained
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v6
       with:
         name: ParquetViewer
-        path: src/ParquetViewer/publish/ParquetViewer.exe
+        path: publish/ParquetViewer.exe
 
   checkPublish:
     runs-on: windows-latest
