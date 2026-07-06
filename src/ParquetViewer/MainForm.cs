@@ -408,45 +408,44 @@ namespace ParquetViewer
                 TimeSpan renderTime = totalTime - loadTime - indexTime;
 
                 //Little secret performance counter
+                string engineName;
+                if (engine is Engine.ParquetNET.ParquetEngine)
+                    engineName = "ParquetNET";
+                else if (engine is CsvEngine)
+                    engineName = "CSV";
+                else
+                    engineName = "Unknown";
+
                 this.showingStatusBarLabel.ToolTipText = $"Total time: {totalTime:mm\\:ss\\.ff}" + Environment.NewLine +
                 $"    Load time: {loadTime:mm\\:ss\\.ff}" + Environment.NewLine +
                 $"    Index time: {indexTime:mm\\:ss\\.ff}" + Environment.NewLine +
                 $"    Render time: {renderTime:mm\\:ss\\.ff}" + Environment.NewLine +
-                $"Engine: {engine switch
-                {
-                    Engine.ParquetNET.ParquetEngine => "ParquetNET",
-                    Engine.DuckDB.ParquetEngine => "DuckDB",
-                    CsvEngine => "CSV",
-                    _ => "Unknown"
-                }}";
+                $"Engine: {engineName}";
 
                 loadingIcon?.Dispose();
+            }
 
-                if (wasSuccessful)
-                {
-                    if (engine is CsvEngine)
-                        return;
+            if (wasSuccessful && engine is not CsvEngine)
+            {
+                var engineType = this._openParquetEngine is Engine.ParquetNET.ParquetEngine
+                    ? FileOpenEvent.ParquetEngineTypeId.ParquetNET
+                    : FileOpenEvent.ParquetEngineTypeId.DuckDB;
 
-                    var engineType = this._openParquetEngine is Engine.ParquetNET.ParquetEngine
-                        ? FileOpenEvent.ParquetEngineTypeId.ParquetNET
-                        : FileOpenEvent.ParquetEngineTypeId.DuckDB;
-
-                    FileOpenEvent.FireAndForget(
-                        Directory.Exists(this.OpenFileOrFolderPath),
-                        engine.NumberOfPartitions,
-                        engine.RecordCount,
-                        engine.Metadata.RowGroups.Count,
-                        engine.Fields.Count,
-                        this.MainDataSource!.Columns.Cast<DataColumn>().Select(column => column.DataType.Name).Distinct().Order().ToArray(),
-                        this.CurrentOffset,
-                        this.CurrentMaxRowCount,
-                        this.MainDataSource!.Columns.Count,
-                        (long)totalTime.TotalMilliseconds,
-                        (long)loadTime.TotalMilliseconds,
-                        (long)indexTime.TotalMilliseconds,
-                        (long)renderTime.TotalMilliseconds,
-                        engineType);
-                }
+                FileOpenEvent.FireAndForget(
+                    Directory.Exists(this.OpenFileOrFolderPath),
+                    engine.NumberOfPartitions,
+                    engine.RecordCount,
+                    engine.Metadata.RowGroups.Count,
+                    engine.Fields.Count,
+                    this.MainDataSource!.Columns.Cast<DataColumn>().Select(column => column.DataType.Name).Distinct().Order().ToArray(),
+                    this.CurrentOffset,
+                    this.CurrentMaxRowCount,
+                    this.MainDataSource!.Columns.Count,
+                    (long)totalTime.TotalMilliseconds,
+                    (long)loadTime.TotalMilliseconds,
+                    (long)indexTime.TotalMilliseconds,
+                    (long)renderTime.TotalMilliseconds,
+                    engineType);
             }
         }
 
