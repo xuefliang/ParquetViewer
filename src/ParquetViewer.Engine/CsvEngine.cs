@@ -48,6 +48,30 @@ namespace ParquetViewer.Engine
             if (fileBytes.Length >= 2 && fileBytes[0] == 0xFE && fileBytes[1] == 0xFF)
                 return Encoding.BigEndianUnicode;
 
+            bool hasHighBytes = false;
+            foreach (byte b in fileBytes)
+            {
+                if (b > 0x7F)
+                {
+                    hasHighBytes = true;
+                    break;
+                }
+            }
+
+            if (!hasHighBytes)
+                return Encoding.UTF8;
+
+            try
+            {
+                var gbk = Encoding.GetEncoding(936);
+                var gbkText = gbk.GetString(fileBytes);
+                if (gbkText.IndexOf('\uFFFD') == -1)
+                    return gbk;
+            }
+            catch
+            {
+            }
+
             try
             {
                 _ = new UTF8Encoding(false, true).GetString(fileBytes);
@@ -55,7 +79,7 @@ namespace ParquetViewer.Engine
             }
             catch (DecoderFallbackException)
             {
-                return Encoding.GetEncoding(0);
+                return Encoding.UTF8;
             }
         }
 
