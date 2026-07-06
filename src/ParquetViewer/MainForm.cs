@@ -200,7 +200,14 @@ namespace ParquetViewer
             {
                 try
                 {
-                    this._openParquetEngine = await Engine.ParquetNET.ParquetEngine.OpenFileOrFolderAsync(this.OpenFileOrFolderPath, default);
+                    if (this.OpenFileOrFolderPath.EndsWith(".csv", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        this._openParquetEngine = new CsvEngine(this.OpenFileOrFolderPath);
+                    }
+                    else
+                    {
+                        this._openParquetEngine = await Engine.ParquetNET.ParquetEngine.OpenFileOrFolderAsync(this.OpenFileOrFolderPath, default);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -291,7 +298,7 @@ namespace ParquetViewer
             catch (Exception unhandledEx)
             {
                 //Try DuckDB if Parquet.NET fails
-                if (this._openParquetEngine is Engine.DuckDB.ParquetEngine)
+                if (this._openParquetEngine is Engine.DuckDB.ParquetEngine or CsvEngine)
                     throw;
 
                 try
@@ -405,12 +412,21 @@ namespace ParquetViewer
                 $"    Load time: {loadTime:mm\\:ss\\.ff}" + Environment.NewLine +
                 $"    Index time: {indexTime:mm\\:ss\\.ff}" + Environment.NewLine +
                 $"    Render time: {renderTime:mm\\:ss\\.ff}" + Environment.NewLine +
-                $"Engine: {(engine is Engine.ParquetNET.ParquetEngine ? "ParquetNET" : "DuckDB")}";
+                $"Engine: {engine switch
+                {
+                    Engine.ParquetNET.ParquetEngine => "ParquetNET",
+                    Engine.DuckDB.ParquetEngine => "DuckDB",
+                    CsvEngine => "CSV",
+                    _ => "Unknown"
+                }}";
 
                 loadingIcon?.Dispose();
 
                 if (wasSuccessful)
                 {
+                    if (engine is CsvEngine)
+                        return;
+
                     var engineType = this._openParquetEngine is Engine.ParquetNET.ParquetEngine
                         ? FileOpenEvent.ParquetEngineTypeId.ParquetNET
                         : FileOpenEvent.ParquetEngineTypeId.DuckDB;
