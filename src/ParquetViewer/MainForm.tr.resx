@@ -441,6 +441,18 @@
   <data name="shareAnonymousUsageDataToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Gizlilik politikası için Hakkında sayfasına bakınız</value>
   </data>
+  <data name="simplifiedChineseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="simplifiedChineseToolStripMenuItem.Text" xml:space="preserve">
+    <value>Basitleştirilmiş Çince</value>
+  </data>
+  <data name="traditionalChineseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="traditionalChineseToolStripMenuItem.Text" xml:space="preserve">
+    <value>Geleneksel Çince</value>
+  </data>
   <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 22</value>
   </data>

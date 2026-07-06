@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LoadedRecordCountRangeFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="LoadingDataLabelText" xml:space="preserve">
+    <value>正在載入資料</value>
+  </data>
+  <data name="CancelInitiatedLabelText" xml:space="preserve">
+    <value>正在取消...</value>
+  </data>
+  <data name="ExportingDataLabelText" xml:space="preserve">
+    <value>正在匯出資料</value>
+  </data>
+  <data name="IndexingDataLabelText" xml:space="preserve">
+    <value>正在建立索引</value>
+  </data>
+  <data name="PrivacyPolicyLabelText" xml:space="preserve">
+    <value>隱私權政策</value>
+  </data>
+  <data name="InvalidDateFormatErrorText" xml:space="preserve">
+    <value>無效的日期格式</value>
+  </data>
+  <data name="TooManyFieldsErrorFormat" xml:space="preserve">
+    <value>欄位過多：{0}</value>
+  </data>
+  <data name="UnsupportedFieldCountTextFormat" xml:space="preserve">
+    <value>不支援的欄位數：{0}</value>
+  </data>
+  <data name="SelectAllCheckmarkTextFormat" xml:space="preserve">
+    <value>全選（數量：{0}）</value>
+  </data>
+  <data name="DeselectAllCheckmarkTextFormat" xml:space="preserve">
+    <value>取消全選（數量：{0}）</value>
+  </data>
+  <data name="ThriftMetadataCopiedToClipboardMessage" xml:space="preserve">
+    <value>原始 Thrift 中繼資料已複製到剪貼簿。</value>
+  </data>
+  <data name="SaveRawMetadataToFileDialogTitle" xml:space="preserve">
+    <value>儲存原始中繼資料</value>
+  </data>
+  <data name="MetadataSuccessfullyExportedToFileMessageFormat" xml:space="preserve">
+    <value>中繼資料已成功匯出到：{0}</value>
+  </data>
+  <data name="MetadataSuccessfullyExportedToFileMessageTitle" xml:space="preserve">
+    <value>匯出完成</value>
+  </data>
+  <data name="MainWindowOpenFileTitleFormat" xml:space="preserve">
+    <value>檔案：{0}</value>
+  </data>
+  <data name="MainWindowOpenFolderTitleFormat" xml:space="preserve">
+    <value>資料夾：{0}</value>
+  </data>
+  <data name="QuerySyntaxHelpText" xml:space="preserve">
+    <value>空值判斷：
+    WHERE field_name IS NULL
+    WHERE field_name IS NOT NULL
+日期時間：
+    WHERE field_name &gt;= #2000-12-31#
+    WHERE field_name = #2000-01-13 01:00:00#
+數值：
+    WHERE field_name &lt;= 123.4
+    WHERE (field1 * field2) / 100 &gt; 0.1
+文字：
+    WHERE field_name LIKE '%value%'
+    WHERE field_name = 'equals value'
+    WHERE field_name &lt;&gt; 'not equals'
+IN 判斷：
+    WHERE field_name IN (value1, value2)
+    WHERE field_name NOT IN (value3, value4)
+多重條件：
+    WHERE (field_1 = 0 AND field_2 &lt;&gt; 'value') OR field_3 IS NULL
+
+更多資訊請查看：說明 → 使用者指南</value>
+  </data>
+  <data name="QuerySyntaxHelpTitle" xml:space="preserve">
+    <value>篩選查詢語法範例</value>
+  </data>
+  <data name="RecordsToBeExportedTitleFormat" xml:space="preserve">
+    <value>將匯出 {0} 筆記錄</value>
+  </data>
+  <data name="ExportCancelledMessage" xml:space="preserve">
+    <value>匯出已取消</value>
+  </data>
+  <data name="ExportCancelledTitle" xml:space="preserve">
+    <value>匯出已取消</value>
+  </data>
+  <data name="ExportSuccessfulMessageFormat" xml:space="preserve">
+    <value>匯出成功！
+
+檔案大小：{0} MB</value>
+  </data>
+  <data name="ExportSuccessfulTitle" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="SwitchFromXlsToXlsxMessageFormat" xml:space="preserve">
+    <value>{1} 格式每個儲存格最多支援 {0} 個字元。
+
+是否要切換為 {2} 檔案？</value>
+  </data>
+  <data name="SwitchFromXlsToXlsxMessageTitle" xml:space="preserve">
+    <value>資料過長 - 切換匯出格式？</value>
+  </data>
+  <data name="CreateTableScriptCopiedToClipboardMessage" xml:space="preserve">
+    <value>建立資料表指令碼已複製到剪貼簿！</value>
+  </data>
+  <data name="CreateTableScriptFailedWithNoFieldsMessage" xml:space="preserve">
+    <value>請先選取一些欄位以產生 SQL 指令碼</value>
+  </data>
+  <data name="CopyToClipboardText" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CopyToClipboardWithHeadersText" xml:space="preserve">
+    <value>含標題複製</value>
+  </data>
+  <data name="CopyAsWhereConditionText" xml:space="preserve">
+    <value>複製為 WHERE 條件</value>
+  </data>
+  <data name="DecimalScientificFormatting" xml:space="preserve">
+    <value>科學記號</value>
+  </data>
+  <data name="DimensionsText" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="TypeText" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="SaveImageToFileButtonTextFormat" xml:space="preserve">
+    <value>另存為 {0}</value>
+  </data>
+  <data name="CantGoBackLinkButtonText" xml:space="preserve">
+    <value>無法返回</value>
+  </data>
+  <data name="SaveImageAsButtonText" xml:space="preserve">
+    <value>影像另存為 {0}</value>
+  </data>
+  <data name="ImageSavedToDiskMessage" xml:space="preserve">
+    <value>影像已儲存到：{0}</value>
+  </data>
+  <data name="ImageSavedToDiskTitle" xml:space="preserve">
+    <value>儲存完成</value>
+  </data>
+  <data name="DecimalFormatting" xml:space="preserve">
+    <value>十進位</value>
+  </data>
+  <data name="LanguageChangeConfirmationTitle" xml:space="preserve">
+    <value>重新啟動 ParquetViewer？</value>
+  </data>
+  <data name="LanguageChangeConfirmationMessage" xml:space="preserve">
+    <value>變更語言需要重新啟動應用程式。是否繼續？</value>
+  </data>
+  <data name="DotNetDateFormatHelpUrl" xml:space="preserve">
+    <value>https://docs.microsoft.com/zh-tw/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="AnalyticsConsentPromptMessage" xml:space="preserve">
+    <value>是否願意分享匿名使用資料以協助改善 ParquetViewer？
+
+您可以隨時從說明功能表變更此設定。</value>
+  </data>
+  <data name="AnalyticsConsentPromptTitle" xml:space="preserve">
+    <value>分享匿名使用資料？</value>
+  </data>
+  <data name="FileExtensionAssociationPromptMessageFormat" xml:space="preserve">
+    <value>是否將 ParquetViewer 關聯到 .parquet 檔案？
+
+可執行檔路徑：{0}
+
+您也可以從說明 → 關於頁面變更此設定。</value>
+  </data>
+  <data name="FileExtensionAssociationPromptTitle" xml:space="preserve">
+    <value>ParquetViewer 檔案關聯請求</value>
+  </data>
+  <data name="FileExtensionAssociationCancelledMessage" xml:space="preserve">
+    <value>檔案關聯已取消。如果您改變主意，可以前往說明 → 關於頁面進行設定。</value>
+  </data>
+  <data name="FileExtensionAssociationCancelledTitle" xml:space="preserve">
+    <value>檔案關聯已取消</value>
+  </data>
+  <data name="FileExtensionAssociationFailedMessageFormat" xml:space="preserve">
+    <value>出現問題（錯誤代碼：{0}）。
+
+您可以從說明 → 關於頁面重試。</value>
+  </data>
+  <data name="FileExtensionAssociationFailedTitle" xml:space="preserve">
+    <value>檔案關聯失敗</value>
+  </data>
+  <data name="FileExtensionAssociationSucceededMessage" xml:space="preserve">
+    <value>成功！ParquetViewer 現在是 .parquet 檔案的預設應用程式。</value>
+  </data>
+  <data name="FileExtensionAssociationSucceededTitle" xml:space="preserve">
+    <value>檔案關聯成功</value>
+  </data>
+  <data name="DarkModePromptMessage" xml:space="preserve">
+    <value>是否要使用深色模式？
+
+您可以隨時從編輯功能表切換此設定。</value>
+  </data>
+  <data name="DarkModePromptTitle" xml:space="preserve">
+    <value>切換到深色模式？</value>
+  </data>
+  <data name="QueryRunningStatusText" xml:space="preserve">
+    <value>執行中：</value>
+  </data>
+  <data name="QueryFinishedStatusText" xml:space="preserve">
+    <value>完成用時：</value>
+  </data>
+  <data name="QueryZoomStatusTextFormat" xml:space="preserve">
+    <value>查詢縮放：{0}%</value>
+  </data>
+  <data name="ByteArraysNotSupportedErrorMessage" xml:space="preserve">
+    <value>抱歉，byte[] 類型目前不支援在查詢結果中顯示。值將顯示為 null。</value>
+  </data>
+  <data name="ByteArraysNotSupportedErrorTitle" xml:space="preserve">
+    <value>不支援位元組陣列</value>
+  </data>
+  <data name="FrozenColumnText" xml:space="preserve">
+    <value>凍結</value>
+  </data>
+</root>

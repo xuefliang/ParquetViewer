@@ -363,7 +363,7 @@ namespace ParquetViewer
             // 
             // languageToolStripMenuItem
             // 
-            languageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { englishToolStripMenuItem, turkishToolStripMenuItem });
+            languageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { englishToolStripMenuItem, simplifiedChineseToolStripMenuItem, traditionalChineseToolStripMenuItem, turkishToolStripMenuItem });
             languageToolStripMenuItem.Image = Resources.Icons.localization_icon;
             languageToolStripMenuItem.Name = "languageToolStripMenuItem";
             resources.ApplyResources(languageToolStripMenuItem, "languageToolStripMenuItem");
@@ -381,6 +381,20 @@ namespace ParquetViewer
             resources.ApplyResources(turkishToolStripMenuItem, "turkishToolStripMenuItem");
             turkishToolStripMenuItem.Tag = "tr-TR";
             turkishToolStripMenuItem.Click += languageToolStripMenuItem_Click;
+            // 
+            // simplifiedChineseToolStripMenuItem
+            // 
+            simplifiedChineseToolStripMenuItem.Name = "simplifiedChineseToolStripMenuItem";
+            resources.ApplyResources(simplifiedChineseToolStripMenuItem, "simplifiedChineseToolStripMenuItem");
+            simplifiedChineseToolStripMenuItem.Tag = "zh-CN";
+            simplifiedChineseToolStripMenuItem.Click += languageToolStripMenuItem_Click;
+            // 
+            // traditionalChineseToolStripMenuItem
+            // 
+            traditionalChineseToolStripMenuItem.Name = "traditionalChineseToolStripMenuItem";
+            resources.ApplyResources(traditionalChineseToolStripMenuItem, "traditionalChineseToolStripMenuItem");
+            traditionalChineseToolStripMenuItem.Tag = "zh-TW";
+            traditionalChineseToolStripMenuItem.Click += languageToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -529,6 +543,8 @@ namespace ParquetViewer
         private ToolStripMenuItem languageToolStripMenuItem;
         private ToolStripMenuItem englishToolStripMenuItem;
         private ToolStripMenuItem turkishToolStripMenuItem;
+        private ToolStripMenuItem simplifiedChineseToolStripMenuItem;
+        private ToolStripMenuItem traditionalChineseToolStripMenuItem;
     }
 }
 

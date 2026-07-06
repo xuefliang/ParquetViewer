@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CopyRawMetadataFailedErrorMessage" xml:space="preserve">
+    <value>複製中繼資料到剪貼簿時發生錯誤。是否要將資料儲存到檔案？</value>
+  </data>
+  <data name="CopyRawMetadataFailedErrorTitle" xml:space="preserve">
+    <value>複製錯誤</value>
+  </data>
+  <data name="FieldListGenerationError" xml:space="preserve">
+    <value>產生欄位清單時發生錯誤。</value>
+  </data>
+  <data name="FileAssociationFailedErrorMessageFormat" xml:space="preserve">
+    <value>出現問題（錯誤代碼：{0}）。請以系統管理員身分執行 ParquetViewer 後重試。</value>
+  </data>
+  <data name="FileAssociationFailedErrorTitle" xml:space="preserve">
+    <value>檔案關聯失敗</value>
+  </data>
+  <data name="GenericErrorMessage" xml:space="preserve">
+    <value>出現問題</value>
+  </data>
+  <data name="InvalidDateFormatErrorMessage" xml:space="preserve">
+    <value>無效的日期格式。請查閱文件了解有效的格式字串。</value>
+  </data>
+  <data name="InvalidDateFormatErrorTitle" xml:space="preserve">
+    <value>無效的日期格式</value>
+  </data>
+  <data name="InvalidQueryErrorTitle" xml:space="preserve">
+    <value>無效的查詢</value>
+  </data>
+  <data name="MetadataReadErrorMessage" xml:space="preserve">
+    <value>讀取檔案中繼資料時發生錯誤。</value>
+  </data>
+  <data name="MetadataReadErrorTitle" xml:space="preserve">
+    <value>中繼資料錯誤</value>
+  </data>
+  <data name="NestedListOfTypeNotSupportedMessageFormat" xml:space="preserve">
+    <value>包含 {1} 的 {0} 欄位目前不受支援</value>
+  </data>
+  <data name="NoFieldsFoundErrorMessage" xml:space="preserve">
+    <value>所選檔案/資料夾不包含任何欄位。</value>
+  </data>
+  <data name="NoFieldsFoundErrorTitle" xml:space="preserve">
+    <value>找不到欄位</value>
+  </data>
+  <data name="NoThriftMetadataAvailableErrorMessage" xml:space="preserve">
+    <value>找不到 Thrift 中繼資料</value>
+  </data>
+  <data name="OpenFileNoLongerExistsErrorMessageFormat" xml:space="preserve">
+    <value>指定的檔案/資料夾已不存在：{0}請開啟其他檔案或資料夾。</value>
+  </data>
+  <data name="ParquetSchemaReadErrorMessage" xml:space="preserve">
+    <value>無法讀取 Parquet 結構描述。</value>
+  </data>
+  <data name="SelectAtLeastOneFieldErrorMessage" xml:space="preserve">
+    <value>請至少選取一個欄位</value>
+  </data>
+  <data name="SelectAtLeastOneFieldErrorTitle" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="StructWithUnsupportedFieldErrorMessageFormat" xml:space="preserve">
+    <value>結構 `{0}` 包含不支援的欄位：`{1}`</value>
+  </data>
+  <data name="TooManyColumnsXlsErrorMessageFormat" xml:space="preserve">
+    <value>.xls 檔案格式最多支援 {0} 欄。
+
+請選擇其他檔案類型或減少要儲存的欄位數量。您的欄位數：{1}</value>
+  </data>
+  <data name="TooManyColumnsErrorTitle" xml:space="preserve">
+    <value>欄數過多</value>
+  </data>
+  <data name="TooManyColumnsXlsxErrorMessageFormat" xml:space="preserve">
+    <value>.xlsx 檔案格式最多支援 {0} 欄。
+
+請選擇其他檔案類型或減少要儲存的欄位數量。您的欄位數：{1}</value>
+  </data>
+  <data name="UnknownFieldTypeErrorMessage" xml:space="preserve">
+    <value>未知的欄位類型</value>
+  </data>
+  <data name="UnsupportedExportTypeFormat" xml:space="preserve">
+    <value>不支援的檔案類型：'{0}'</value>
+  </data>
+  <data name="ExportFailedErrorTitle" xml:space="preserve">
+    <value>匯出到檔案失敗</value>
+  </data>
+  <data name="NoValidParquetFilesFoundErrorMessage" xml:space="preserve">
+    <value>找不到有效的 parquet 檔案。找到的無效檔案：</value>
+  </data>
+  <data name="SomeInvalidParquetFilesFoundErrorMessage" xml:space="preserve">
+    <value>某些 parquet 檔案無法載入。找到的無效檔案：</value>
+  </data>
+  <data name="UnexpectedFileReadErrorMessageFormat" xml:space="preserve">
+    <value>無法讀取 Parquet 檔案。
+
+如果問題仍然存在，請考慮在專案的 GitHub 儲存庫中回報：說明 → 關於
+
+{0}</value>
+  </data>
+  <data name="MultipleSchemasDetectedErrorMessage" xml:space="preserve">
+    <value>偵測到多個結構描述。</value>
+  </data>
+  <data name="MalformedFieldErrorMessageFormat" xml:space="preserve">
+    <value>{0}
+
+如果您認為檔案實際上是有效的，請在專案的 GitHub 儲存庫中回報問題：說明 → 關於</value>
+  </data>
+  <data name="DecimalValueTooLargeErrorTitle" xml:space="preserve">
+    <value>Decimal 值過大</value>
+  </data>
+  <data name="DecimalValueTooLargeErrorMessageFormat" xml:space="preserve">
+    <value>類型為 DECIMAL({1}, {2}) 的欄位 `{0}` 超出了 ParquetViewer 支援的範圍：DECIMAL({3}, {4}) 到 DECIMAL({3}, 0)</value>
+  </data>
+  <data name="MultipleSchemasDetectedEntriesErrorMessageFormat" xml:space="preserve">
+    <value>結構描述-{0} 欄位（前 5 個）：</value>
+  </data>
+  <data name="CopyAsWhereTooLargeErrorMessage" xml:space="preserve">
+    <value>選取的資料過多。請選取較少的儲存格。</value>
+  </data>
+  <data name="CopyAsWhereTooLargeErrorTitle" xml:space="preserve">
+    <value>複製到剪貼簿失敗</value>
+  </data>
+  <data name="InvalidQueryErrorMessage" xml:space="preserve">
+    <value>查詢似乎無效。</value>
+  </data>
+  <data name="UnexpectedAssemblyVersionErrorFormat" xml:space="preserve">
+    <value>遇到意外的程式版本：{0}</value>
+  </data>
+  <data name="CopyToClipboardErrorTitle" xml:space="preserve">
+    <value>複製到剪貼簿失敗</value>
+  </data>
+  <data name="CopyErrorMessageText" xml:space="preserve">
+    <value>（按 CTRL+C 複製）</value>
+  </data>
+  <data name="DecimalValueUnknownSizeTooLargeErrorMessageFormat" xml:space="preserve">
+    <value>遇到超出 ParquetViewer 支援範圍（DECIMAL({3}, {4}) 到 DECIMAL({3}, 0)）的 DECIMAL 值</value>
+  </data>
+  <data name="ListsWithNullsErrorMessage" xml:space="preserve">
+    <value>不支援包含 null 的清單。</value>
+  </data>
+  <data name="ListsWithNullsErrorTitle" xml:space="preserve">
+    <value>無法讀取所有記錄</value>
+  </data>
+  <data name="QueryExecutionErrorTitle" xml:space="preserve">
+    <value>處理查詢時發生錯誤</value>
+  </data>
+  <data name="RenderResultsErrorTitle" xml:space="preserve">
+    <value>顯示結果時發生錯誤</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="livePreviewTextBox.PlaceholderText" xml:space="preserve">
+    <value>👈🏽 開始輸入以預覽</value>
+  </data>
+  <data name="label56.Text" xml:space="preserve">
+    <value>即時預覽：</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>年，四位數。</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>年，從 00 到 99。</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>月，從 01 到 12</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>月，從 1 到 12。</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>日，從 01 到 31。</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>日，從 1 到 31。</value>
+  </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>格式字串</value>
+  </data>
+  <data name="label39.Text" xml:space="preserve">
+    <value>說明</value>
+  </data>
+  <data name="label40.Text" xml:space="preserve">
+    <value>範例</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>秒，從 0 到 59。</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>秒，從 00 到 59。</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>分，從 0 到 59。</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>分，從 00 到 59。</value>
+  </data>
+  <data name="label30.Text" xml:space="preserve">
+    <value>時，12 小時制，從 01 到 12。</value>
+  </data>
+  <data name="label36.Text" xml:space="preserve">
+    <value>時，24 小時制，從 00 到 23。</value>
+  </data>
+  <data name="label48.Text" xml:space="preserve">
+    <value>日期中的毫秒部分。</value>
+  </data>
+  <data name="label54.Text" xml:space="preserve">
+    <value>時間值中秒的十分之一微秒。</value>
+  </data>
+  <data name="label45.Text" xml:space="preserve">
+    <value>AM/PM 指示項。</value>
+  </data>
+  <data name="dateFormatDocsLinkLabel.Text" xml:space="preserve">
+    <value>按一下此處查看所有格式字串</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>請輸入您想要的日期格式：</value>
+  </data>
+  <data name="desiredDateFormatTextBox.PlaceholderText" xml:space="preserve">
+    <value>例如：yyyy-MM-dd hh:mm:ss tt</value>
+  </data>
+  <data name="saveDateFormatButton.Text" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ParquetViewer - 日期格式設定</value>
+  </data>
+</root>
