@@ -40,83 +40,37 @@ namespace ParquetViewer.Engine
 
         private static Encoding DetectEncoding(string filePath)
         {
-            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            byte[] header = new byte[4];
+            int headerLen;
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                headerLen = fs.Read(header, 0, 4);
+            }
 
-            byte[] bom = new byte[4];
-            int bytesRead = fs.Read(bom, 0, 4);
-
-            if (bytesRead >= 3 && bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+            if (headerLen >= 3 && header[0] == 0xEF && header[1] == 0xBB && header[2] == 0xBF)
                 return Encoding.UTF8;
-            if (bytesRead >= 2 && bom[0] == 0xFF && bom[1] == 0xFE)
+            if (headerLen >= 2 && header[0] == 0xFF && header[1] == 0xFE)
                 return Encoding.Unicode;
-            if (bytesRead >= 2 && bom[0] == 0xFE && bom[1] == 0xFF)
+            if (headerLen >= 2 && header[0] == 0xFE && header[1] == 0xFF)
                 return Encoding.BigEndianUnicode;
 
-            // No BOM: try UTF-8 first, fall back to system ANSI (GBK on Chinese Windows)
-            if (IsValidUtf8(filePath))
-                return Encoding.UTF8;
+            // Read sample (first 8KB) and try strict UTF-8 decoding
+            byte[] sample = new byte[8192];
+            int sampleLen;
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                sampleLen = fs.Read(sample, 0, sample.Length);
+            }
 
-            return Encoding.GetEncoding(0);
-        }
-
-        private static bool IsValidUtf8(string filePath)
-        {
             try
             {
-                byte[] buffer = File.ReadAllBytes(filePath);
-                int i = 0;
-                while (i < buffer.Length)
-                {
-                    if (buffer[i] <= 0x7F)
-                    {
-                        i++;
-                    }
-                    else if (buffer[i] >= 0xC2 && buffer[i] <= 0xDF)
-                    {
-                        if (i + 1 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF)
-                            return false;
-                        i += 2;
-                    }
-                    else if (buffer[i] == 0xE0)
-                    {
-                        if (i + 2 >= buffer.Length || buffer[i + 1] < 0xA0 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF)
-                            return false;
-                        i += 3;
-                    }
-                    else if (buffer[i] >= 0xE1 && buffer[i] <= 0xEF)
-                    {
-                        if (i + 2 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF)
-                            return false;
-                        i += 3;
-                    }
-                    else if (buffer[i] == 0xF0)
-                    {
-                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x90 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
-                            return false;
-                        i += 4;
-                    }
-                    else if (buffer[i] >= 0xF1 && buffer[i] <= 0xF3)
-                    {
-                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
-                            return false;
-                        i += 4;
-                    }
-                    else if (buffer[i] == 0xF4)
-                    {
-                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0x8F || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
-                            return false;
-                        i += 4;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                return true;
+                _ = new UTF8Encoding(false, true).GetString(sample, 0, sampleLen);
+                return Encoding.UTF8;
             }
-            catch
+            catch (DecoderFallbackException)
             {
-                return false;
+                // Invalid UTF-8 → use system ANSI (GBK on Chinese Windows)
+                return Encoding.GetEncoding(0);
             }
         }
 
