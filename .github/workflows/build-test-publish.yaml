@@ -51,13 +51,23 @@ jobs:
         results-path: ./src/ParquetViewer.Tests/TestResults/*.trx
 
     - name: Publish executable
-      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj -c Debug -f net10.0-windows --nologo -o "$env:GITHUB_WORKSPACE\publish" -r win-x64 --no-self-contained
+      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj -c Debug -f net10.0-windows --nologo -r win-x64 --no-self-contained
+
+    - name: Find and copy executable
+      run: |
+        $exe = Get-ChildItem -Recurse -Filter ParquetViewer.exe | Select-Object -First 1
+        if (-not $exe) {
+          Write-Error "ParquetViewer.exe not found after publish"
+          exit 1
+        }
+        Write-Host "Found exe at: $($exe.FullName)"
+        Copy-Item $exe.FullName "$env:GITHUB_WORKSPACE\ParquetViewer.exe"
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v6
       with:
         name: ParquetViewer
-        path: publish/ParquetViewer.exe
+        path: ParquetViewer.exe
 
   checkPublish:
     runs-on: windows-latest
