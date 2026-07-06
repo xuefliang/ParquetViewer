@@ -174,6 +174,9 @@ namespace ParquetViewer
                 string queryText = this.searchFilterTextBox.Text ?? string.Empty;
                 queryText = QueryUselessPartRegex().Replace(queryText, string.Empty).Trim();
 
+                //Normalize smart quotes to ASCII single quotes
+                queryText = queryText.Replace('\u2018', '\'').Replace('\u2019', '\'');
+
                 //Auto-wrap non-ASCII column names (e.g. Chinese) in brackets for DataView expression syntax
                 //Only replace outside of quoted string values to avoid corrupting the values
                 foreach (DataColumn col in this.MainDataSource.Columns)
