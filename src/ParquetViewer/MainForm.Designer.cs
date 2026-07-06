@@ -73,6 +73,8 @@ namespace ParquetViewer
             shareAnonymousUsageDataToolStripMenuItem = new ToolStripMenuItem();
             languageToolStripMenuItem = new ToolStripMenuItem();
             englishToolStripMenuItem = new ToolStripMenuItem();
+            simplifiedChineseToolStripMenuItem = new ToolStripMenuItem();
+            traditionalChineseToolStripMenuItem = new ToolStripMenuItem();
             turkishToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             showingRecordCountStatusBarLabel = new ToolStripStatusLabel();
