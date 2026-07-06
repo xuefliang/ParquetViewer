@@ -1,4 +1,4 @@
-name: Build ParquetViewer
+name: Build and Test
 
 on:
   workflow_dispatch:
@@ -7,13 +7,13 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  checks: write
+  pull-requests: write
+
 jobs:
   build:
     runs-on: windows-latest
-
-    strategy:
-      matrix:
-        configuration: [Release, Release_SelfContained]
 
     steps:
     - uses: actions/checkout@v4
@@ -26,14 +26,26 @@ jobs:
     - name: Restore
       run: dotnet restore src/ParquetViewer.sln
 
-    - name: Build
-      run: dotnet build src/ParquetViewer.sln --configuration ${{ matrix.configuration }} --no-restore
+    - name: Build (Debug)
+      run: dotnet build src/ParquetViewer.sln --configuration Debug --no-restore
 
-    - name: Publish
-      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj --configuration ${{ matrix.configuration }} --output publish/${{ matrix.configuration }}
+    - name: Test
+      run: dotnet test src/ParquetViewer.sln --no-build --logger trx
 
-    - name: Upload artifact
+    - name: Publish (Release)
+      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj --configuration Release --output publish/Release -r win-x64 --no-self-contained
+
+    - name: Publish (Release_SelfContained)
+      run: dotnet publish src/ParquetViewer/ParquetViewer.csproj --configuration Release_SelfContained --output publish/Release_SelfContained -r win-x64 --self-contained
+
+    - name: Upload Release artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ParquetViewer-${{ matrix.configuration }}
-        path: publish/${{ matrix.configuration }}/
+        name: ParquetViewer-Release
+        path: publish/Release/ParquetViewer.exe
+
+    - name: Upload SelfContained artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ParquetViewer-SelfContained
+        path: publish/Release_SelfContained/ParquetViewer.exe
