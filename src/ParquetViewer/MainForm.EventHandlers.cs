@@ -18,6 +18,8 @@ namespace ParquetViewer
         [GeneratedRegex("^WHERE ")]
         private static partial Regex QueryUselessPartRegex();
 
+        private static readonly Regex _validColumnNameRegex = new("^[a-zA-Z0-9_]+$");
+
         private void offsetTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -172,14 +174,30 @@ namespace ParquetViewer
                 string queryText = this.searchFilterTextBox.Text ?? string.Empty;
                 queryText = QueryUselessPartRegex().Replace(queryText, string.Empty).Trim();
 
+                //Auto-wrap non-ASCII column names (e.g. Chinese) in brackets for DataView expression syntax
+                foreach (DataColumn col in this.MainDataSource.Columns)
+                {
+                    if (!_validColumnNameRegex.IsMatch(col.ColumnName) && !col.ColumnName.StartsWith('['))
+                    {
+                        queryText = queryText.Replace(col.ColumnName, $"[{col.ColumnName}]");
+                    }
+                }
+
                 //Treat list, map, and struct types as strings by casting them automatically
                 foreach (var complexField in this.mainGridView.Columns.OfType<DataGridViewColumn>()
                     .Where(c => c.ValueType.ImplementsInterface<IListValue>() || c.ValueType.ImplementsInterface<IMapValue>()
                         || c.ValueType.ImplementsInterface<IStructValue>() || c.ValueType.ImplementsInterface<IByteArrayValue>())
                     .Select(c => c.Name))
                 {
-                    //This isn't perfect but it should handle most cases
-                    queryText = queryText.Replace(complexField, $"CONVERT({complexField}, System.String)", StringComparison.InvariantCultureIgnoreCase);
+                    var bracketedField = $"[{complexField}]";
+                    if (queryText.Contains(bracketedField, StringComparison.OrdinalIgnoreCase))
+                    {
+                        queryText = queryText.Replace(bracketedField, $"CONVERT({bracketedField}, System.String)", StringComparison.OrdinalIgnoreCase);
+                    }
+                    else
+                    {
+                        queryText = queryText.Replace(complexField, $"CONVERT({complexField}, System.String)", StringComparison.InvariantCultureIgnoreCase);
+                    }
                 }
 
                 if (string.IsNullOrWhiteSpace(queryText)
