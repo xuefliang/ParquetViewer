@@ -57,7 +57,7 @@ jobs:
       uses: actions/upload-artifact@v6
       with:
         name: ParquetViewer
-        path: publish/ParquetViewer.exe
+        path: src/ParquetViewer/publish/ParquetViewer.exe
 
   checkPublish:
     runs-on: windows-latest
