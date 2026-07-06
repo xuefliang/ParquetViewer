@@ -40,36 +40,21 @@ namespace ParquetViewer.Engine
 
         private static Encoding DetectEncoding(string filePath)
         {
-            byte[] header = new byte[4];
-            int headerLen;
-            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                headerLen = fs.Read(header, 0, 4);
-            }
-
-            if (headerLen >= 3 && header[0] == 0xEF && header[1] == 0xBB && header[2] == 0xBF)
+            byte[] fileBytes = File.ReadAllBytes(filePath);
+            if (fileBytes.Length >= 3 && fileBytes[0] == 0xEF && fileBytes[1] == 0xBB && fileBytes[2] == 0xBF)
                 return Encoding.UTF8;
-            if (headerLen >= 2 && header[0] == 0xFF && header[1] == 0xFE)
+            if (fileBytes.Length >= 2 && fileBytes[0] == 0xFF && fileBytes[1] == 0xFE)
                 return Encoding.Unicode;
-            if (headerLen >= 2 && header[0] == 0xFE && header[1] == 0xFF)
+            if (fileBytes.Length >= 2 && fileBytes[0] == 0xFE && fileBytes[1] == 0xFF)
                 return Encoding.BigEndianUnicode;
-
-            // Read sample (first 8KB) and try strict UTF-8 decoding
-            byte[] sample = new byte[8192];
-            int sampleLen;
-            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                sampleLen = fs.Read(sample, 0, sample.Length);
-            }
 
             try
             {
-                _ = new UTF8Encoding(false, true).GetString(sample, 0, sampleLen);
+                _ = new UTF8Encoding(false, true).GetString(fileBytes);
                 return Encoding.UTF8;
             }
             catch (DecoderFallbackException)
             {
-                // Invalid UTF-8 → use system ANSI (GBK on Chinese Windows)
                 return Encoding.GetEncoding(0);
             }
         }
