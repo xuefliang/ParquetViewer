@@ -15,30 +15,38 @@ namespace ParquetViewer
         [STAThread]
         private static int Main(string[] args)
         {
-            if (IsFileAssociationMode(args))
+            try
             {
-                return AttemptFileAssociation(args);
-            }
+                if (IsFileAssociationMode(args))
+                {
+                    return AttemptFileAssociation(args);
+                }
 
-            //Set language
-            if (AppSettings.UserSelectedCulture is not null)
+                //Set language
+                if (AppSettings.UserSelectedCulture is not null)
+                {
+                    CultureInfo.CurrentUICulture = AppSettings.UserSelectedCulture;
+                }
+
+                //Enable HighDpi mode
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                RouteUnhandledExceptions();
+
+                //Prepare main form
+                string? pathToOpen = GetPathToOpen(args);
+                var mainForm = new MainForm(pathToOpen); //Form must be created after calling SetCompatibleTextRenderingDefault();
+                AppSettings.DarkMode = AppSettings.DarkMode; // Trigger Theming
+
+                Application.Run(mainForm);
+                return 0;
+            }
+            catch (Exception ex)
             {
-                CultureInfo.CurrentUICulture = AppSettings.UserSelectedCulture;
+                ExceptionHandler(ex);
+                return 1;
             }
-
-            //Enable HighDpi mode
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            //Prepare main form
-            string? pathToOpen = GetPathToOpen(args);
-            var mainForm = new MainForm(pathToOpen); //Form must be created after calling SetCompatibleTextRenderingDefault();
-            AppSettings.DarkMode = AppSettings.DarkMode; // Trigger Theming
-
-            RouteUnhandledExceptions();
-
-            Application.Run(mainForm);
-            return 0;
         }
 
         private static bool IsFileAssociationMode(string[] args)
