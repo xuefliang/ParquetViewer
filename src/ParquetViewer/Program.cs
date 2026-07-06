@@ -3,6 +3,7 @@ using ParquetViewer.Helpers;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ParquetViewer
@@ -17,6 +18,8 @@ namespace ParquetViewer
         {
             try
             {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
                 if (IsFileAssociationMode(args))
                 {
                     return AttemptFileAssociation(args);
