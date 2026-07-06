@@ -329,6 +329,8 @@ namespace ParquetViewer
             var stopwatch = Stopwatch.StartNew(); var loadTime = TimeSpan.Zero; var indexTime = TimeSpan.Zero;
             LoadingIcon? loadingIcon = null;
             var wasSuccessful = false;
+            TimeSpan totalTime = TimeSpan.Zero;
+            TimeSpan renderTime = TimeSpan.Zero;
             try
             {
                 if (!this.IsAnyFileOpen)
@@ -404,8 +406,8 @@ namespace ParquetViewer
             {
                 stopwatch.Stop();
 
-                TimeSpan totalTime = stopwatch.Elapsed;
-                TimeSpan renderTime = totalTime - loadTime - indexTime;
+                totalTime = stopwatch.Elapsed;
+                renderTime = totalTime - loadTime - indexTime;
 
                 //Little secret performance counter
                 string engineName;
