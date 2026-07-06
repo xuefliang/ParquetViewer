@@ -1,4 +1,4 @@
-﻿using ParquetViewer.Analytics;
+using ParquetViewer.Analytics;
 using ParquetViewer.Controls;
 using ParquetViewer.Engine.Types;
 using ParquetViewer.Helpers;
@@ -295,6 +295,48 @@ namespace ParquetViewer.Tests
             Assert.AreEqual("01-02-03-04[...]07-08-09-10", byteArrayValue.ToStringTruncated(28));
             Assert.AreEqual("01-02-03-04-05-06-07-08-09-10", byteArrayValue.ToStringTruncated(29));
             Assert.AreEqual("01-02-03-04-05-06-07-08-09-10", byteArrayValue.ToString());
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_ChineseColumnName_StringValue_BracketsColumnOnly()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE 姓名='test2'", ["姓名"]);
+            Assert.AreEqual("WHERE [姓名]='test2'", result);
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_ChineseColumnName_NumericValue_BracketsColumnOnly()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE 年龄=25", ["年龄"]);
+            Assert.AreEqual("WHERE [年龄]=25", result);
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_AlreadyBracketed_DoesNotChange()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE [姓名]='test2'", ["姓名"]);
+            Assert.AreEqual("WHERE [姓名]='test2'", result);
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_ValueMatchingColumnName_DoesNotBracketValue()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE 姓名='姓名'", ["姓名"]);
+            Assert.AreEqual("WHERE [姓名]='姓名'", result);
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_SubstringColumn_DoesNotCorruptLongerName()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE 姓名='test2'", ["姓", "姓名"]);
+            Assert.AreEqual("WHERE [姓名]='test2'", result);
+        }
+
+        [TestMethod]
+        public void AutoBracketColumnNames_AsciiColumnName_DoesNotChange()
+        {
+            string result = QueryHelper.AutoBracketColumnNames("WHERE Name='test2'", ["Name"]);
+            Assert.AreEqual("WHERE Name='test2'", result);
         }
     }
 }

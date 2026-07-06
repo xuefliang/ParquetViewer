@@ -1,4 +1,4 @@
-﻿using ParquetViewer.Analytics;
+using ParquetViewer.Analytics;
 using ParquetViewer.Engine.Types;
 using ParquetViewer.Exceptions;
 using ParquetViewer.Helpers;
@@ -17,8 +17,6 @@ namespace ParquetViewer
     {
         [GeneratedRegex("^WHERE ")]
         private static partial Regex QueryUselessPartRegex();
-
-        private static readonly Regex _validColumnNameRegex = new("^[a-zA-Z0-9_]+$");
 
         private void offsetTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -179,18 +177,9 @@ namespace ParquetViewer
 
                 //Auto-wrap non-ASCII column names (e.g. Chinese) in brackets for DataView expression syntax
                 //Only replace outside of quoted string values to avoid corrupting the values
-                foreach (DataColumn col in this.MainDataSource.Columns)
-                {
-                    if (!_validColumnNameRegex.IsMatch(col.ColumnName) && !col.ColumnName.StartsWith('['))
-                    {
-                        var parts = queryText.Split('\'');
-                        for (int i = 0; i < parts.Length; i += 2) //even indices are outside quotes
-                        {
-                            parts[i] = parts[i].Replace(col.ColumnName, $"[{col.ColumnName}]");
-                        }
-                        queryText = string.Join('\'', parts);
-                    }
-                }
+                queryText = QueryHelper.AutoBracketColumnNames(
+                    queryText,
+                    this.MainDataSource.Columns.Cast<DataColumn>().Select(col => col.ColumnName));
 
                 //Treat list, map, and struct types as strings by casting them automatically
                 foreach (var complexField in this.mainGridView.Columns.OfType<DataGridViewColumn>()
