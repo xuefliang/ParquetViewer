@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,16 +19,105 @@ namespace ParquetViewer.Engine
         public string Path { get; }
 
         private readonly string _filePath;
+        private readonly Encoding _encoding;
 
         public CsvEngine(string filePath)
         {
             _filePath = filePath;
             Path = filePath;
+            _encoding = DetectEncoding(filePath);
 
-            using var reader = new StreamReader(filePath);
+            using var reader = CreateReader(filePath);
             Fields = ReadCsvHeaders(reader);
             RecordCount = CountDataRows(reader);
             Metadata = new CsvParquetMetadata(RecordCount, Fields.Count);
+        }
+
+        private StreamReader CreateReader(string path)
+        {
+            return new StreamReader(path, _encoding, detectEncodingFromByteOrderMarks: false);
+        }
+
+        private static Encoding DetectEncoding(string filePath)
+        {
+            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+
+            byte[] bom = new byte[4];
+            int bytesRead = fs.Read(bom, 0, 4);
+
+            if (bytesRead >= 3 && bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+                return Encoding.UTF8;
+            if (bytesRead >= 2 && bom[0] == 0xFF && bom[1] == 0xFE)
+                return Encoding.Unicode;
+            if (bytesRead >= 2 && bom[0] == 0xFE && bom[1] == 0xFF)
+                return Encoding.BigEndianUnicode;
+
+            // No BOM: try UTF-8 first, fall back to system ANSI (GBK on Chinese Windows)
+            if (IsValidUtf8(filePath))
+                return Encoding.UTF8;
+
+            return Encoding.GetEncoding(0);
+        }
+
+        private static bool IsValidUtf8(string filePath)
+        {
+            try
+            {
+                byte[] buffer = File.ReadAllBytes(filePath);
+                int i = 0;
+                while (i < buffer.Length)
+                {
+                    if (buffer[i] <= 0x7F)
+                    {
+                        i++;
+                    }
+                    else if (buffer[i] >= 0xC2 && buffer[i] <= 0xDF)
+                    {
+                        if (i + 1 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF)
+                            return false;
+                        i += 2;
+                    }
+                    else if (buffer[i] == 0xE0)
+                    {
+                        if (i + 2 >= buffer.Length || buffer[i + 1] < 0xA0 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF)
+                            return false;
+                        i += 3;
+                    }
+                    else if (buffer[i] >= 0xE1 && buffer[i] <= 0xEF)
+                    {
+                        if (i + 2 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF)
+                            return false;
+                        i += 3;
+                    }
+                    else if (buffer[i] == 0xF0)
+                    {
+                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x90 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
+                            return false;
+                        i += 4;
+                    }
+                    else if (buffer[i] >= 0xF1 && buffer[i] <= 0xF3)
+                    {
+                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0xBF || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
+                            return false;
+                        i += 4;
+                    }
+                    else if (buffer[i] == 0xF4)
+                    {
+                        if (i + 3 >= buffer.Length || buffer[i + 1] < 0x80 || buffer[i + 1] > 0x8F || buffer[i + 2] < 0x80 || buffer[i + 2] > 0xBF || buffer[i + 3] < 0x80 || buffer[i + 3] > 0xBF)
+                            return false;
+                        i += 4;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static List<string> ReadCsvHeaders(StreamReader reader)
@@ -97,7 +187,7 @@ namespace ParquetViewer.Engine
                     dataTable.Columns.Add(col, typeof(string));
                 }
 
-                using var reader = new StreamReader(_filePath);
+                using var reader = CreateReader(_filePath);
                 reader.ReadLine();
 
                 long currentRow = 0;
