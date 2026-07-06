@@ -175,11 +175,17 @@ namespace ParquetViewer
                 queryText = QueryUselessPartRegex().Replace(queryText, string.Empty).Trim();
 
                 //Auto-wrap non-ASCII column names (e.g. Chinese) in brackets for DataView expression syntax
+                //Only replace outside of quoted string values to avoid corrupting the values
                 foreach (DataColumn col in this.MainDataSource.Columns)
                 {
                     if (!_validColumnNameRegex.IsMatch(col.ColumnName) && !col.ColumnName.StartsWith('['))
                     {
-                        queryText = queryText.Replace(col.ColumnName, $"[{col.ColumnName}]");
+                        var parts = queryText.Split('\'');
+                        for (int i = 0; i < parts.Length; i += 2) //even indices are outside quotes
+                        {
+                            parts[i] = parts[i].Replace(col.ColumnName, $"[{col.ColumnName}]");
+                        }
+                        queryText = string.Join('\'', parts);
                     }
                 }
 
